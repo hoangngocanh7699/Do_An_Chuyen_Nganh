@@ -4,21 +4,26 @@
 
 
 <div class="features_items"><!--features_items-->
-                        @foreach($category_name as $key => $name)
-                        <h2 class="title text-center">{{$name->category_name}}</h2>
-                        @endforeach
-                       @foreach($category_by_id as $key => $product)
-                       <a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_id)}}">
+                        <h2 class="title text-center">Kết quả tìm kiếm</h2>
+                        @foreach($search_product as $key => $product)
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
-                                <div class="single-products" >
+                                <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img style="aspect-ratio: 4 /3; object-fit: contain;"  src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="" />
+                                            <img height="220px" width="220px" style="
+            object-position: center;
+            object-fit: cover;" src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="" />
                                             <h2>{{ $product->product_price.' '.'VND' }}</h2>
                                             <p>{{$product->product_name}}</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
                                         </div>
-                                       
+                                       {{-- <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div> 
+                                        </div> --}}
                                 </div>
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
@@ -28,8 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        </a>
-                        @endforeach   
+                        @endforeach
                     </div><!--features_items-->
 
         <!--/recommended_items-->

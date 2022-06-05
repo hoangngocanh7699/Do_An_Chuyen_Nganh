@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>Home | Nameless.Auto</title>
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -32,8 +32,8 @@
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i> +84 36 47 24 42</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> 1812725@dlu.edu.vn</a></li>
                             </ul>
                         </div>
                     </div>
@@ -86,11 +86,49 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                                
+                                <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
+                                <?php
+                                    $customer_id = Session::get('customer_id');
+                                    $shipping_id = Session::get('shipping_id');
+                                    if($customer_id!=NULL && $shipping_id==NULL){
+                                ?>
+                                
+                                <li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                <?php
+                                }elseif($customer_id!=NULL && $shipping_id!=NULL){
+
+                                ?>
+                                <li><a href="{{URL::to('/payment')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                <?php
+                                }else{
+
+
+                                ?>
+                                <li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                <?php
+                                 
+                                }
+                                
+                                ?>
+                                
+                                <li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                <?php
+                                    $customer_id = Session::get('customer_id');
+                                    if($customer_id!=NULL){
+                                ?>
+                                
+                                <li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+                                <?php
+                                }else{
+
+                                ?>
+                                <li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                <?php
+                                } 
+
+                                ?>
+                                
                             </ul>
                         </div>
                     </div>
@@ -101,7 +139,7 @@
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
@@ -122,15 +160,19 @@
                                 <li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
                                     
                                 </li> 
-                                <li><a href="404.html">Giỏ hàng</a></li>
+                                <li><a href="{{URL::to('/show-cart')}}">Giỏ hàng</a></li>
                                 <li><a href="contact-us.html">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-5">
+                        <form action="{{URL::to('/tim-kiem')}}" method="POST">
+                            {{csrf_field()}}
                         <div class="search_box pull-right">
-                            <input type="text" placeholder="Search"/>
+                            <input type="text" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>
+                            <input type="submit" style="margin-top:0;color:#666;" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm"/>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -152,8 +194,8 @@
                             <div class="item active">
                                 <div class="col-sm-6">
                                     <h1><span>Nameless</span>.Auto</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <h2>BÁN XE NHANH, MUA XE TỐT</h2>
+                                    
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
@@ -164,8 +206,8 @@
                             <div class="item">
                                 <div class="col-sm-6">
                                     <h1><span>Nameless</span>.Auto</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <h2>BÁN XE NHANH, MUA XE TỐT</h2>
+                                    
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
@@ -177,8 +219,8 @@
                             <div class="item">
                                 <div class="col-sm-6">
                                     <h1><span>Nameless</span>.Auto</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <h2>BÁN XE NHANH, MUA XE TỐT</h2>
+                                    
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
@@ -254,7 +296,7 @@
                     <div class="col-sm-2">
                         <div class="companyinfo">
                             <h2><span>Nameless</span>.Auto</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+                            <p>Website bán ô tô số 1 Việt Nam</p>
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -333,19 +375,19 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Service</h2>
+                            <h2>Dịch vụ</h2>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Online Help</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Order Status</a></li>
-                                <li><a href="#">Change Location</a></li>
-                                <li><a href="#">FAQ’s</a></li>
+                                <li><a href="#">Trợ giúp trực tuyến</a></li>
+                                <li><a href="#">Liên hệ chúng tôi</a></li>
+                                <li><a href="#">Tình trạng đặt hàng</a></li>
+                                <li><a href="#">Thay đổi địa điểm</a></li>
+                                <li><a href="#">Câu hỏi thường gặp</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Quock Shop</h2>
+                            <h2>Mặt hàng</h2>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="#">SUV</a></li>
                                 <li><a href="#">Pick-up</a></li>
@@ -357,35 +399,35 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Policies</h2>
+                            <h2>Chính sách</h2>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Terms of Use</a></li>
-                                <li><a href="#">Privecy Policy</a></li>
-                                <li><a href="#">Refund Policy</a></li>
-                                <li><a href="#">Billing System</a></li>
-                                <li><a href="#">Ticket System</a></li>
+                                <li><a href="#">Điều khoản sử dụng</a></li>
+                                <li><a href="#">Chính sách bảo mật</a></li>
+                                <li><a href="#">Chính sách hoàn lại tiền</a></li>
+                                <li><a href="#">Hệ thống thanh toán</a></li>
+                                <li><a href="#">Hệ thống vé</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>About Car</h2>
+                            <h2>Về ô tô</h2>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Company Information</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Store Location</a></li>
-                                <li><a href="#">Affillate Program</a></li>
-                                <li><a href="#">Copyright</a></li>
+                                <li><a href="#">Thông tin công ty</a></li>
+                                <li><a href="#">Nghề nghiệp</a></li>
+                                <li><a href="#">Vị trí cửa hàng</a></li>
+                                <li><a href="#">Chương trình liên kết</a></li>
+                                <li><a href="#">Bản quyền</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-3 col-sm-offset-1">
                         <div class="single-widget">
-                            <h2>About Car</h2>
+                            <h2>Về ô tô</h2>
                             <form action="#" class="searchform">
                                 <input type="text" placeholder="Your email address" />
                                 <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                                <p>Get the most recent updates from <br />our site and be updated your self...</p>
+                                <p>Toàn bộ quy chế, quy định giao dịch chung <br />được đăng tải trên website.</p>
                             </form>
                         </div>
                     </div>
